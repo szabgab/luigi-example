@@ -1,3 +1,5 @@
+import luigi
+
 class SomeTask(luigi.Task):
     def run(self):
         # do something
