@@ -22,19 +22,23 @@ class WorldTask(luigi.Task):
         return luigi.LocalTarget('world.txt')
 
 class HelloWorldTask(luigi.Task):
+    name = luigi.Parameter(default='test')
+
     def run(self):
         print("running HelloWorld")
-        time.sleep(tm)
-        with open('hello.txt') as fh:
-            text = fh.read()
-        with open('world.txt') as fh:
-            text += fh.read()
-        with open('hw.txt', 'w') as fh:
+        #time.sleep(tm)
+        #with open('hello.txt') as fh:
+        #    text = fh.read()
+        #with open('world.txt') as fh:
+        #    text += fh.read()
+        text = "Hello World" + str(time.time())
+        with open('{}.txt'.format(self.name), 'w') as fh:
             fh.write(text)
     def output(self):
-        return luigi.LocalTarget('hw.txt')
-    def requires(self):
-        return [HelloTask(), WorldTask()]
+        print(self.name)
+        return luigi.LocalTarget('{}.txt'.format(self.name))
+    #def requires(self):
+    #    return [HelloTask(), WorldTask()]
 
 
 if __name__ == '__main__':
